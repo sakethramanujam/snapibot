@@ -22,9 +22,10 @@ async def on_message(message):
 
     if message.content.startswith('!info'):
         embed = discord.Embed(title="Spaceflight News API",
-                              description="Notifying on new space related news articles", color=2659031)
+                                    description="Notifying on new space related news articles - "
+                                                "Powered by https://www.spaceflightnewsapi.net.", color=2659031)
         embed.add_field(name="Author", value="Derk Weijers")
-        embed.add_field(name="Github ", value="https://github.com")
+        embed.add_field(name="Github ", value="https://github.com/spaceflightnewsapi/snapibot")
         await client.send_message(message.channel, embed=embed)
 
     if message.content.startswith('!help'):
