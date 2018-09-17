@@ -1,8 +1,11 @@
 import discord
 import requests
 import os
+import time
+import redis
 
 TOKEN = os.environ['SNAPIBOT_TOKEN']
+redis_client = redis.Redis.from_url(os.environ['REDIS_URI'])
 
 client = discord.Client()
 
@@ -35,7 +38,7 @@ async def on_message(message):
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name="https://www.spaceflightnewsapi.net"))
+    await client.change_presence(game=discord.Game(name="spaceflightnewsapi.net"))
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
