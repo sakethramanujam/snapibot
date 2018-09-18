@@ -1,13 +1,21 @@
+import asyncio
 import discord
 import requests
 import os
-import time
 import redis
 
 TOKEN = os.environ['SNAPIBOT_TOKEN']
 redis_client = redis.Redis.from_url(os.environ['REDIS_URI'])
 
 client = discord.Client()
+
+
+async def testje():
+    await client.wait_until_ready()
+    while not client.is_closed:
+        print('loop')
+        await asyncio.sleep(10)
+
 
 @client.event
 async def on_message(message):
@@ -36,6 +44,7 @@ async def on_message(message):
                               description="Notifying on new space related news articles", color=2659031)
         await client.send_message(message.channel, embed=embed)
 
+
 @client.event
 async def on_ready():
     await client.change_presence(game=discord.Game(name="spaceflightnewsapi.net"))
@@ -44,5 +53,5 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-
+client.loop.create_task(testje())
 client.run(TOKEN)
