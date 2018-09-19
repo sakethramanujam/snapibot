@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1251eb97d8218baed02902fa7dd0ec45ded3f87e10ea436bdcac461d58b5104b"
+            "sha256": "0afe645ca4e496bcbe78b32a77430468148260286dc903d89587e07f022d0310"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -93,6 +93,14 @@
             "markers": "python_version >= '3.4.1'",
             "version": "==4.4.1"
         },
+        "pyro4": {
+            "hashes": [
+                "sha256:4a71a613015d1a2bca6939d9ce4d5866ccd1fd30365ebbbf67482b6341867cf8",
+                "sha256:536b07a097d0619e7ab1effa3747fda177a24168d17a07a93ca9ac30977608f7"
+            ],
+            "index": "pypi",
+            "version": "==4.73"
+        },
         "redis": {
             "hashes": [
                 "sha256:8a1900a9f2a0a44ecf6e8b5eb3e967a9909dfed219ad66df094f27f7d6f330fb",
@@ -108,6 +116,13 @@
             ],
             "index": "pypi",
             "version": "==2.19.1"
+        },
+        "serpent": {
+            "hashes": [
+                "sha256:6f8dc4317fb5b5a9629b5e518846bc9fee374b8171533726dc68df52b36ee912",
+                "sha256:eb489aeb85333f6ee5ab2f4bc666a5731d870a562b26b6e63c6b9384befd3186"
+            ],
+            "version": "==1.27"
         },
         "urllib3": {
             "hashes": [
