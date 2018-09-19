@@ -1,6 +1,7 @@
 import discord
 import requests
 import os
+from utils import backgoundtasks
 
 # Settings
 TOKEN = os.environ['SNAPIBOT_TOKEN']
@@ -40,6 +41,8 @@ class SpaceflightNewsAPI(discord.Client):
         print(client.user.name)
         print(client.user.id)
         print('------')
+        self.loop.create_task(backgoundtasks.send_latest(self))
 
-client=SpaceflightNewsAPI()
+
+client = SpaceflightNewsAPI()
 client.run(TOKEN)
