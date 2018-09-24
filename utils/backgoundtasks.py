@@ -20,3 +20,11 @@ async def send_latest(client):
                 await client.send_message(client.get_channel(id='493854629747097610'), embed=embed) #TODO: Remove channel ID
                 r.set('latest_id', article['_id'])
         await asyncio.sleep(10)
+
+
+async def all_channels(client):
+    await client.wait_until_ready()
+    while not client.is_closed:
+        for channel in client.get_all_channels():
+            print(channel)
+        await asyncio.sleep(60)
