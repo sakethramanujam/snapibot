@@ -35,6 +35,11 @@ class SpaceflightNewsAPI(discord.Client):
                                   description="Notifying on new space related news articles", color=2659031)
             await client.send_message(message.channel, embed=embed)
 
+        if message.content.startswith('!register'):
+            embed = discord.Embed(title="This channel is now registered!",
+                                  description="To unregister, issue \"!unregister\" in this channel", color=2659031)
+            await client.send_message(message.channel, embed=embed)
+
     async def on_ready(self):
         await client.change_presence(game=discord.Game(name="spaceflightnewsapi.net"))
         print('Logged in as')
@@ -42,7 +47,7 @@ class SpaceflightNewsAPI(discord.Client):
         print(client.user.id)
         print('------')
         self.loop.create_task(backgoundtasks.send_latest(self))
-        self.loop.create_task(backgoundtasks.all_channels(self))
+        # self.loop.create_task(backgoundtasks.all_channels(self))
 
 
 client = SpaceflightNewsAPI()

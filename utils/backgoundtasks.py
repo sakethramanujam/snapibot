@@ -26,5 +26,5 @@ async def all_channels(client):
     await client.wait_until_ready()
     while not client.is_closed:
         for channel in client.get_all_channels():
-            print(channel)
+            print(channel.id)
         await asyncio.sleep(60)
