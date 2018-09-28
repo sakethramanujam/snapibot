@@ -1,10 +1,12 @@
 import discord
 import requests
 import os
+import redis
 from utils import backgoundtasks
 
 # Settings
 TOKEN = os.environ['SNAPIBOT_TOKEN']
+r = redis.Redis.from_url(os.environ['REDIS_URI'])
 
 
 class SpaceflightNewsAPI(discord.Client):
