@@ -1,6 +1,5 @@
 import asyncio
 import os
-
 import discord
 import redis
 from utils import spaceflightnewsapi
