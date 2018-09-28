@@ -6,7 +6,7 @@ from utils import backgoundtasks
 
 # Settings
 TOKEN = os.environ['SNAPIBOT_TOKEN']
-r = redis.Redis.from_url(os.environ['REDIS_URI'])
+r = redis.Redis.from_url(os.environ['REDIS_URL'])
 
 
 class SpaceflightNewsAPI(discord.Client):

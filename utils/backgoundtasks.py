@@ -4,7 +4,7 @@ import discord
 import redis
 from utils import spaceflightnewsapi
 
-r = redis.Redis.from_url(os.environ['REDIS_URI'])
+r = redis.Redis.from_url(os.environ['REDIS_URL'])
 
 
 async def send_latest(client):
