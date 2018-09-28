@@ -38,9 +38,21 @@ class SpaceflightNewsAPI(discord.Client):
             await client.send_message(message.channel, embed=embed)
 
         if message.content.startswith('!register'):
-            embed = discord.Embed(title="This channel is now registered!",
-                                  description="To unregister, issue \"!unregister\" in this channel", color=2659031)
-            await client.send_message(message.channel, embed=embed)
+            if message.author.server_permissions.administrator:
+                if message.channel.id.encode() in r.lrange('subscribed_channels', 0, -1):
+                    embed = discord.Embed(title="Oh no!",
+                                          description="This channel is already registered!",
+                                          color=2659031)
+                    await client.send_message(message.channel, embed=embed)
+                else:
+                    r.lpush('subscribed_channels', message.channel.id)
+                    embed = discord.Embed(title="This channel is now registered!",
+                                      description="To unregister, issue \"!unregister\" in this channel", color=2659031)
+                    await client.send_message(message.channel, embed=embed)
+            else:
+                embed = discord.Embed(title="Uh, Houston, we’ve had a problem",
+                                      description="It seems like you're not a server admin. Please issue the command as admin!", color=2659031)
+                await client.send_message(message.channel, embed=embed)
 
     async def on_ready(self):
         await client.change_presence(game=discord.Game(name="spaceflightnewsapi.net"))
@@ -49,7 +61,6 @@ class SpaceflightNewsAPI(discord.Client):
         print(client.user.id)
         print('------')
         self.loop.create_task(backgoundtasks.send_latest(self))
-        # self.loop.create_task(backgoundtasks.all_channels(self))
 
 
 client = SpaceflightNewsAPI()
