@@ -55,7 +55,7 @@ class SpaceflightNewsAPI(discord.Client):
                 await client.send_message(message.channel, embed=embed)
 
     async def on_ready(self):
-        await client.change_presence(game=discord.Game(name="spaceflightnewsapi.net"))
+        await client.change_presence(game=discord.Game(name="https://www.spaceflightnewsapi.net"))
         print('Logged in as')
         print(client.user.name)
         print(client.user.id)
