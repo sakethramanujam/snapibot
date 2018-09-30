@@ -54,6 +54,23 @@ class SpaceflightNewsAPI(discord.Client):
                                       description="It seems like you're not a server admin. Please issue the command as admin!", color=2659031)
                 await client.send_message(message.channel, embed=embed)
 
+        if message.content.startswith('!unregister'):
+            if message.author.server_permissions.administrator:
+                if message.channel.id.encode() in r.lrange('subscribed_channels', 0, -1):
+                    r.lrem('subscribed_channels', message.channel.id.encode())
+                    embed = discord.Embed(title="This is SNAPI, signing off",
+                                          description="This channel is now unregistered!",
+                                          color=2659031)
+                    await client.send_message(message.channel, embed=embed)
+                else:
+                    embed = discord.Embed(title="Ug oh!",
+                                      description="This channel is currently not registered!", color=2659031)
+                    await client.send_message(message.channel, embed=embed)
+            else:
+                embed = discord.Embed(title="Uh, Houston, we’ve had a problem",
+                                      description="It seems like you're not a server admin. Please issue the command as admin!", color=2659031)
+                await client.send_message(message.channel, embed=embed)
+
     async def on_ready(self):
         await client.change_presence(game=discord.Game(name="https://www.spaceflightnewsapi.net"))
         print('Logged in as')
