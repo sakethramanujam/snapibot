@@ -31,7 +31,8 @@ class SpaceflightNewsAPI(discord.Client):
                                         description="Notifying on new space related news articles - "
                                                     "Powered by https://www.spaceflightnewsapi.net.", color=2659031)
             embed.add_field(name="Author", value="Derk Weijers")
-            embed.add_field(name="Github ", value="https://github.com/spaceflightnewsapi/snapibot")
+            embed.add_field(name="Github", value="https://github.com/spaceflightnewsapi/snapibot")
+            embed.add_field(name="Invite", value="https://discordapp.com/oauth2/authorize?client_id=491213674380394507&scope=bot&permissions=2048")
             await client.send_message(message.channel, embed=embed)
 
         if message.content.startswith('!help'):
@@ -69,7 +70,7 @@ class SpaceflightNewsAPI(discord.Client):
                                           color=2659031)
                     await client.send_message(message.channel, embed=embed)
                 else:
-                    embed = discord.Embed(title="Ug oh!",
+                    embed = discord.Embed(title="Uh oh!",
                                       description="This channel is currently not registered!", color=2659031)
                     await client.send_message(message.channel, embed=embed)
             else:
