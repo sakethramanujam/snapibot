@@ -1,7 +1,9 @@
-import discord
-import requests
 import os
+
+import discord
 import redis
+import requests
+
 from utils import backgoundtasks
 
 # Settings
