@@ -37,6 +37,10 @@ class SpaceflightNewsAPI(discord.Client):
         if message.content.startswith('!help'):
             embed = discord.Embed(title="Spaceflight News API",
                                   description="Notifying on new space related news articles", color=2659031)
+            embed.add_field(name="!info", value="Show info about this bot.")
+            embed.add_field(name="!latest", value="Gives back the last 5 articles.")
+            embed.add_field(name="!register", value="Register a channel to receive notifications.")
+            embed.add_field(name="!unregister", value="Unregister a channel and stop receiving notifications.")
             await client.send_message(message.channel, embed=embed)
 
         if message.content.startswith('!register'):
@@ -74,7 +78,7 @@ class SpaceflightNewsAPI(discord.Client):
                 await client.send_message(message.channel, embed=embed)
 
     async def on_ready(self):
-        await client.change_presence(game=discord.Game(name="https://www.spaceflightnewsapi.net"))
+        await client.change_presence(game=discord.Game(name="spaceflightnewsapi.net"))
         print('Logged in as')
         print(client.user.name)
         print(client.user.id)
