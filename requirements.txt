@@ -2,3 +2,4 @@ discord.py
 requests
 redis
 pyro4
+python-twitter
