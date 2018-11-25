@@ -25,5 +25,4 @@ async def send_latest(client):
                     embed.set_image(url=article['featured_image'])
                     await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
                 r.set('latest_id', article['_id'])
-                api.PostUpdate('This is a test')
         await asyncio.sleep(10)
