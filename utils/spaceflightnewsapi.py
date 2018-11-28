@@ -5,7 +5,7 @@ Contains the stuff for dealing with the r/SpaceX API
 import aiohttp
 
 
-snapi_url = "https://api.spaceflightnewsapi.net/articles?limit=1"
+snapi_url = "https://api.spaceflightnewsapi.net/articles?limit=10"
 
 
 async def latest_article():
