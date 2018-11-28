@@ -3,6 +3,7 @@ import os
 import discord
 import redis
 import twitter
+import datetime
 from utils import spaceflightnewsapi
 
 r = redis.Redis.from_url(os.environ['REDIS_URL'])
@@ -25,5 +26,6 @@ async def send_latest(client):
                     embed.set_image(url=article['featured_image'])
                     await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
                 r.set('latest_id', article['_id'])
-                api.PostUpdate('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
+                status = api.PostUpdate('New article by %s: %s %s %s' % (article['news_site_long'], article['title'], article['url'], datetime.datetime.now()))
+                print(status)
         await asyncio.sleep(10)
