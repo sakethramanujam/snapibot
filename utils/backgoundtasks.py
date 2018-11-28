@@ -2,15 +2,16 @@ import asyncio
 import os
 import discord
 import redis
-# import twitter
+import twitter
+import datetime
 from utils import spaceflightnewsapi
 
 r = redis.Redis.from_url(os.environ['REDIS_URL'])
 
-# api = twitter.Api(consumer_key=os.environ['CONSUMER_KEY'],
-#                   consumer_secret=os.environ['CONSUMER_SECRET'],
-#                   access_token_key=os.environ['ACCESS_TOKEN'],
-#                   access_token_secret=os.environ['ACCESS_TOKEN_SECRET'])
+api = twitter.Api(consumer_key=os.environ['CONSUMER_KEY'],
+                  consumer_secret=os.environ['CONSUMER_SECRET'],
+                  access_token_key=os.environ['ACCESS_TOKEN'],
+                  access_token_secret=os.environ['ACCESS_TOKEN_SECRET'])
 
 
 async def send_latest(client):
@@ -25,5 +26,6 @@ async def send_latest(client):
                     embed.set_image(url=article['featured_image'])
                     await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
                 r.set('latest_id', article['_id'])
-                # api.PostUpdate('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
+                status = api.PostUpdate('New article by %s: %s %s %s' % (article['news_site_long'], article['title'], article['url'], datetime.datetime.now()))
+                print(status)
         await asyncio.sleep(10)
