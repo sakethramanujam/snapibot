@@ -25,6 +25,10 @@ async def send_latest(client):
                     embed.set_image(url=article['featured_image'])
                     await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
                 r.sadd('latest_articles', article['_id'])
-                status = api.PostUpdate('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
-                print(status)
+                try:
+                    status = api.PostUpdate('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
+                    print(status)
+                except ConnectionResetError:
+                    print("Connection Reset")
+
         await asyncio.sleep(60)
