@@ -23,12 +23,13 @@ async def send_latest(client):
                     embed = discord.Embed(title=article['title'], description=article['news_site_long'],
                                           url=article['url'], color=2659031)
                     embed.set_image(url=article['featured_image'])
-                    await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
-                r.sadd('latest_articles', article['_id'])
                 try:
                     status = api.PostUpdate('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
+                    await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
+                    r.sadd('latest_articles', article['_id'])
                     print(status)
                 except ConnectionResetError:
                     print("Connection Reset")
+                    exit()
 
         await asyncio.sleep(60)
