@@ -30,6 +30,5 @@ async def send_latest(client):
                     print(status)
                 except ConnectionResetError:
                     print("Connection Reset")
-                    exit()
 
         await asyncio.sleep(60)
