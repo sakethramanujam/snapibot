@@ -19,17 +19,19 @@ async def send_latest(client):
         latest_articles = await spaceflightnewsapi.latest_article()
         for article in latest_articles:
             if r.sismember('latest_articles', article['_id']) is False:
-                for subscribed_channel in r.lrange('subscribed_channels', 0, -1):
+                for subscribed_channel in r.lrange('subscribed_channelsx', 0, -1):
+                    print(subscribed_channel)
                     embed = discord.Embed(title=article['title'], description=article['news_site_long'],
                                           url=article['url'], color=2659031)
                     embed.set_image(url=article['featured_image'])
-                try:
-                    status = api.PostUpdate('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
                     await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
-                    r.sadd('latest_articles', article['_id'])
+                try:
+                    status = await api.PostUpdate('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
                     print(status)
+                    r.sadd('latest_articles', article['_id'])
                 except ConnectionResetError:
                     print("Connection Reset")
+                    r.sadd('latest_articles', article['_id'])
                     exit()
 
         await asyncio.sleep(60)
