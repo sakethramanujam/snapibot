@@ -12,7 +12,7 @@ api = twitter.Api(consumer_key=os.environ['CONSUMER_KEY'],
                   access_token_key=os.environ['ACCESS_TOKEN'],
                   access_token_secret=os.environ['ACCESS_TOKEN_SECRET'])
 
-
+# Very ugly but kind of working for now...
 async def send_latest(client):
     await client.wait_until_ready()
     while not client.is_closed:
@@ -33,5 +33,6 @@ async def send_latest(client):
                     print("Connection Reset")
                     r.sadd('latest_articles', article['_id'])
                     exit()
+                r.sadd('latest_articles', article['_id'])
 
         await asyncio.sleep(60)
