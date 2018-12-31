@@ -1,7 +1,3 @@
-"""
-Contains the stuff for dealing with the r/SpaceX API
-"""
-
 import aiohttp
 
 

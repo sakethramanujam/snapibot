@@ -85,6 +85,7 @@ class SpaceflightNewsAPI(discord.Client):
         print(client.user.id)
         print('------')
         self.loop.create_task(backgoundtasks.send_latest(self))
+        self.loop.create_task(backgoundtasks.send_latest_twitter(self))
 
 
 client = SpaceflightNewsAPI()
