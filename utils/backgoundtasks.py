@@ -19,7 +19,7 @@ async def send_latest(client):
         latest_articles = await spaceflightnewsapi.latest_article()
         for article in latest_articles:
             if r.sismember('latest_articles', article['_id']) is False:
-                for subscribed_channel in r.lrange('subscribed_channel', 0, -1):
+                for subscribed_channel in r.lrange('subscribed_channels', 0, -1):
                     embed = discord.Embed(title=article['title'], description=article['news_site_long'],
                                           url=article['url'], color=2659031)
                     embed.set_image(url=article['featured_image'])
