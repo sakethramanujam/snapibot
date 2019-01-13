@@ -25,6 +25,7 @@ async def send_latest(client):
                 #     embed.set_image(url=article['featured_image'])
                 #     await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
                 r.sadd('latest_articles', article['_id'])
+                print("Send new article to Discord " + article['title'])
         await asyncio.sleep(60)
 
 
@@ -36,4 +37,5 @@ async def send_latest_twitter(client):
             if r.sismember('latest_articles_twitter', article['_id']) is False:
                 # api.update_status('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
                 r.sadd('latest_articles_twitter', article['_id'])
+                print("Send new article to Twitter " + article['title'])
         await asyncio.sleep(60)
