@@ -8,4 +8,4 @@ async def latest_article():
     async with aiohttp.ClientSession() as session:
         async with session.get(snapi_url) as response:
             articles = await response.json()
-            return await articles['docs']
+            return articles['docs']
