@@ -17,7 +17,7 @@ async def send_latest(client):
     await client.wait_until_ready()
     while not client.is_closed:
         latest_articles = await spaceflightnewsapi.latest_article()
-        for article in latest_articles:
+        for article in latest_articles['docs']:
             if r.sismember('latest_articles', article['_id']) is False:
                 for subscribed_channel in r.lrange('subscribed_channels', 0, -1):
                     embed = discord.Embed(title=article['title'], description=article['news_site_long'],

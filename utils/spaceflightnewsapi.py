@@ -1,7 +1,7 @@
 import aiohttp
 
 
-snapi_url = "https://api.spaceflightnewsapi.net/articles?limit=10"
+snapi_url = "https://spaceflightnewsapi.net/api/v1/articles?limit=10"
 
 
 async def latest_article():
