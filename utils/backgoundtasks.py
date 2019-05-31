@@ -20,15 +20,13 @@ async def send_latest(client):
         for article in latest_articles:
             if article['news_site_long'] != 'ESA':
                 if r.sismember('latest_articles', article['_id']) is False:
-                    print(article['news_site_long'])
-                    for subscribed_channel in r.lrange('subscribed_channel', 0, -1):
-                        print(subscribed_channel.decode())
+                    for subscribed_channel in r.lrange('subscribed_channels', 0, -1):
                         embed = discord.Embed(title=article['title'], description=article['news_site_long'],
                                               url=article['url'], color=2659031)
                         embed.set_image(url=article['featured_image'])
                         await client.send_message(client.get_channel(id=subscribed_channel.decode()), embed=embed)
                     r.sadd('latest_articles', article['_id'])
-                    print("Send new article to Discord " + article['title'])
+                    print("Send new article to Discord: " + article['title'])
         await asyncio.sleep(60)
 
 
@@ -40,5 +38,5 @@ async def send_latest_twitter(client):
             if r.sismember('latest_articles_twitter', article['_id']) is False:
                 api.update_status('New article by %s: %s %s' % (article['news_site_long'], article['title'], article['url']))
                 r.sadd('latest_articles_twitter', article['_id'])
-                print("Send new article to Twitter " + article['title'])
+                print("Send new article to Twitter: " + article['title'])
         await asyncio.sleep(60)
