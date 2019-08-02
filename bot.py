@@ -2,7 +2,6 @@ import discord
 import os
 import helpers
 from discord.ext import commands
-from pprint import pprint
 
 client = commands.Bot(command_prefix='!')
 
@@ -20,6 +19,7 @@ async def unload(ctx, extension):
 @client.event
 async def on_ready():
     print('Bot is ready.')
+
 
 @client.event
 async def on_command_error(ctx, error):
@@ -44,7 +44,6 @@ async def register(ctx, topic=""):
         await ctx.send("Sorry, not implemented yet!")
     else:
         await ctx.send("Please provide a topic: news, launches, events")
-
 
 
 for filename in os.listdir('./cogs'):
