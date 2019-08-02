@@ -15,9 +15,8 @@ Discord server!
 ## Commands to get started
 
     !help - Gets you started
-    !info - Shows you info about the bot
     !latest - Sends you the 5 latest news articles
-    !register - Subscribes the channel the command was posted in, so that it will receive notifications when there are new articles
-    !unregister - Unsubscribes the channel the command was posted in
+    !register [topic] - Subscribes the channel the command was posted in, so that it will receive notifications when there are new articles
+    !unregister [topic] - Unsubscribes the channel the command was posted in
   
 
