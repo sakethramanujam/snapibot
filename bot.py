@@ -6,16 +6,6 @@ from discord.ext import commands
 client = commands.Bot(command_prefix='!')
 
 
-@client.command()
-async def load(ctx, extension):
-    client.load_extension(f'cogs.{extension}')
-
-
-@client.command()
-async def unload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-
-
 @client.event
 async def on_ready():
     print('Bot is ready.')
@@ -26,18 +16,37 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.BotMissingPermissions):
         await ctx.author.send('Cannot register here - bot does not have required permissions!')
 
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.author.send('You do not have the right permissions to do this')
+
 
 @client.command()
+@commands.has_permissions(administrator=True)
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
 
 @client.command()
 @commands.bot_has_permissions(send_messages=True)
+@commands.has_permissions(administrator=True)
 async def register(ctx, topic=""):
     if topic == "news":
         await helpers.register_in_db(ctx.channel, "news")
         await ctx.send("Registered for news")
+    elif topic == "launches":
+        await ctx.send("Sorry, not implemented yet!")
+    elif topic == "events":
+        await ctx.send("Sorry, not implemented yet!")
+    else:
+        await ctx.send("Please provide a topic: news, launches, events")
+
+
+@client.command()
+@commands.has_permissions(administrator=True)
+async def unregister(ctx, topic=""):
+    if topic == "news":
+        await helpers.unregister(ctx.channel, "news")
+        await ctx.send("Unregistered for news")
     elif topic == "launches":
         await ctx.send("Sorry, not implemented yet!")
     elif topic == "events":

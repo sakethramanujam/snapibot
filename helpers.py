@@ -31,3 +31,12 @@ async def register_in_db(channel, topic):
     # Update channel with required topic
     if topic == "news":
         db.channels.update_one({"channel": channel.id}, {"$set": {"news": True}})
+
+
+async def unregister(channel, topic):
+    if topic == "news":
+        db.channels.update_one({"channel": channel.id}, {"$set": {"news": False}})
+
+    result = db.channels.find_one({"channel": channel.id})
+    if result["events"] is False and result["launches"] is False and result["news"] is False:
+        db.channels.delete_one({"channel": channel.id})
