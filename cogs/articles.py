@@ -3,7 +3,6 @@ from discord.ext import commands
 import urllib.request
 import json
 
-
 class Articles(commands.Cog):
 
     def __init__(self, client):
@@ -26,6 +25,6 @@ class Articles(commands.Cog):
             embed.set_footer(text="Powered by https://www.spaceflightnewsapi.net")
             await ctx.send(embed=embed)
 
-
 def setup(client):
     client.add_cog(Articles(client))
+
