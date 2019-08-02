@@ -30,7 +30,7 @@ async def clear(ctx, amount=5):
 async def register(ctx, topic=""):
     if topic == "news":
         await helpers.register_in_db(ctx.channel, "news")
-        await ctx.send("Registered for news")
+        await ctx.send("Registered for news - please make sure the bot has the right permissions!")
     elif topic == "launches":
         await ctx.send("Sorry, not implemented yet!")
     elif topic == "events":
@@ -43,5 +43,5 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
-client.loop.create_task(helpers.check_latest(client))
+client.loop.create_task(helpers.send_news_notification(client))
 client.run(os.getenv('BOT_TOKEN'))
