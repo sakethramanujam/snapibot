@@ -1,0 +1,13 @@
+{
+	"schemaVersion" :2 ,
+	"dockerfileLines" :[
+		"FROM python:3.7.3-stretch",
+		"COPY ./ /app",
+		"WORKDIR /app",
+		"RUN ls -a",
+		"RUN pip3 install -r requirements",
+		"RUN python3 -m textblob.download_corpora",
+		"CMD [ \"python3\", \"app.py\" ]",
+		"EXPOSE 5000"
+	]
+}
