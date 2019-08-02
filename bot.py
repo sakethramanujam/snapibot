@@ -37,7 +37,7 @@ async def clear(ctx, amount=5):
 async def register(ctx, topic=""):
     if topic == "news":
         await helpers.register_in_db(ctx.channel, "news")
-        await ctx.send("Registered for news - please make sure the bot has the right permissions!")
+        await ctx.send("Registered for news")
     elif topic == "launches":
         await ctx.send("Sorry, not implemented yet!")
     elif topic == "events":
