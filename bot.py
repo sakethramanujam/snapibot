@@ -2,6 +2,7 @@ import discord
 import os
 import helpers
 from discord.ext import commands
+from pprint import pprint
 
 client = commands.Bot(command_prefix='!')
 
@@ -20,6 +21,11 @@ async def unload(ctx, extension):
 async def on_ready():
     print('Bot is ready.')
 
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.BotMissingPermissions):
+        await ctx.author.send('Cannot register here - bot does not have required permissions!')
+
 
 @client.command()
 async def clear(ctx, amount=5):
@@ -27,6 +33,7 @@ async def clear(ctx, amount=5):
 
 
 @client.command()
+@commands.bot_has_permissions(send_messages=True)
 async def register(ctx, topic=""):
     if topic == "news":
         await helpers.register_in_db(ctx.channel, "news")
@@ -37,6 +44,7 @@ async def register(ctx, topic=""):
         await ctx.send("Sorry, not implemented yet!")
     else:
         await ctx.send("Please provide a topic: news, launches, events")
+
 
 
 for filename in os.listdir('./cogs'):
