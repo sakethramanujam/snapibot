@@ -34,7 +34,8 @@ async def register(ctx, topic=""):
         await helpers.register_in_db(ctx.channel, "news")
         await ctx.send("Registered for news")
     elif topic == "launches":
-        await ctx.send("Sorry, not implemented yet!")
+        await helpers.register_in_db(ctx.channel, "launches")
+        await ctx.send("Registered for launches!")
     elif topic == "events":
         await ctx.send("Sorry, not implemented yet!")
     else:
@@ -48,7 +49,8 @@ async def unregister(ctx, topic=""):
         await helpers.unregister(ctx.channel, "news")
         await ctx.send("Unregistered for news")
     elif topic == "launches":
-        await ctx.send("Sorry, not implemented yet!")
+        await helpers.unregister(ctx.channel, "launches")
+        await ctx.send("Unregistered for launches")
     elif topic == "events":
         await ctx.send("Sorry, not implemented yet!")
     else:
@@ -60,4 +62,5 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 client.loop.create_task(helpers.send_news_notification(client))
+client.loop.create_task(helpers.send_launch_notification(client))
 client.run(os.getenv('BOT_TOKEN'))

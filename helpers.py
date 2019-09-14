@@ -22,6 +22,26 @@ async def send_news_notification(client):
         await asyncio.sleep(10)
 
 
+async def send_launch_notification(client):
+    await client.wait_until_ready()
+    while not client.is_closed():
+        result = db.launchnotifications.find({'send.discord': False})
+        for document in result:
+            print("world")
+            channels = db.channels.find({"launches": True})
+            for i in channels:
+                target = client.get_channel(i['channel'])
+                embed = Embed(title=document['name'], color=Colour(value=0x2196f3))
+                embed.add_field(name='when', value=document['net'], inline=False)
+                embed.add_field(name='location', value=document['pad'], inline=False)
+                embed.add_field(name='status', value=document['status']['name'])
+                embed.set_footer(text="Powered by https://www.spacelaunchnow.me")
+                await target.send(embed=embed)
+            db.launchnotifications.update_one({'id': document['id']}, {"$set": {"send.discord": True}})
+
+        await asyncio.sleep(5)
+
+
 async def register_in_db(channel, topic):
     # Check if channel already exists in the db, and create one if it doesn't
     result = db.channels.count_documents({"channel": channel.id})
@@ -32,10 +52,16 @@ async def register_in_db(channel, topic):
     if topic == "news":
         db.channels.update_one({"channel": channel.id}, {"$set": {"news": True}})
 
+    if topic == "launches":
+        db.channels.update_one({"channel": channel.id}, {"$set": {"launches": True}})
+
 
 async def unregister(channel, topic):
     if topic == "news":
         db.channels.update_one({"channel": channel.id}, {"$set": {"news": False}})
+
+    if topic == "launches":
+        db.channels.update_one({"channel": channel.id}, {"$set": {"launches": False}})
 
     result = db.channels.find_one({"channel": channel.id})
     if result["events"] is False and result["launches"] is False and result["news"] is False:
